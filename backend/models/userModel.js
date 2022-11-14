@@ -1,31 +1,18 @@
 import mongoose from 'mongoose'
 
 const userSchema = mongoose.Schema({
-    firstName: {
-        type: String,
-    },
-    secondName:{
-        type: String,
-    },
-    userName: {
+    username: {
         type: String,
         required: true,
-        unique:true
+        unique: true
     },
-    email: {
-        type: String,
-        required: true,
-        unique:true
-    },
-    password: {
+    hashed_pswd:{
         type: String,
         required: true
     },
-    isAdmin: {
-        type: Boolean,
-        required: true,
-        defualt: false
-    },
+    followers: {
+        type: Array
+    }
 }, {
     timestamps: true
 })
