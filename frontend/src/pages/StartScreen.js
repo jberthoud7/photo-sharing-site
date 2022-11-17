@@ -1,6 +1,7 @@
 //import {useState} from "react";
 import { Link } from "react-router-dom";
 import Feed from "./Feed";
+import classes from './StartScreen.module.css';
 
 function StartScreen(props)
 {
@@ -19,12 +20,12 @@ function StartScreen(props)
 
     return(
         <div>
-            <div className="startScreenTitle">
+            <div className={classes.title}>
                 <h1>Photo Sharing Site</h1>
             </div>
-            <div className="startScreenBtns">
-                <Link to='/login'>Login</Link>
-                <Link to='/register'>Register</Link>
+            <div className={classes.linkDiv}>
+                <Link to='/login' className={classes.link}>Login</Link>
+                <Link to='/register' className={classes.link}>Register</Link>
             </div>
             {/* { feedIsShown && <Feed />} */}
         </div>
