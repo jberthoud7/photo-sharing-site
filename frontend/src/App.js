@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import StartScreen from './pages/StartScreen'
 import Feed from './pages/Feed'
+import Login from './pages/Login'
+import Register from './pages/Register'
 import { Route, Routes } from 'react-router-dom'
 
 const App = () => {
@@ -27,6 +29,8 @@ const App = () => {
       <Routes>
         <Route path='/' element={<StartScreen />} />
         <Route path='/myfeed' element={<Feed />} />
+        <Route path='login' element={<Login />} />
+        <Route path='register' element={<Register />} />
       </Routes>
     </div>
   )
