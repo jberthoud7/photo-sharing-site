@@ -1,7 +1,7 @@
 //import {useState} from "react";
 import { Link } from "react-router-dom";
 import Feed from "./Feed";
-import classes from './StartScreen.module.css';
+import classes from '../pages/pagesStyles/StartScreen.module.css';
 
 function StartScreen(props)
 {

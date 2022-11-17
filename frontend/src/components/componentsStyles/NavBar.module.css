@@ -1,0 +1,25 @@
+.container {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #77002e;
+    padding: 0 10px;
+}
+
+.linkContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h3{
+    padding: 10px 50px;
+    color: aliceblue;
+}
+
+.linkContainer >h3:hover{
+    cursor: pointer;
+}
+

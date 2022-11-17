@@ -28,7 +28,7 @@ const App = () => {
     <div>
       <Routes>
         <Route path='/' element={<StartScreen />} />
-        <Route path='/myfeed' element={<Feed />} />
+        <Route path='feed' element={<Feed />} />
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
       </Routes>
