@@ -1,9 +1,12 @@
-function Register(){
+import CreateForm from "../components/LoginCreateAccountForm.js"
+
+function Register(props){
 
     return(
-        <div>
-            Register
-        </div>
+        <CreateForm 
+            header="Create Account"
+            button="Register"
+        />
     )
 }
 

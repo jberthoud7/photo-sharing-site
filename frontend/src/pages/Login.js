@@ -1,16 +1,12 @@
 import { Link } from "react-router-dom";
-import classes from '../pages/pagesStyles/Login.module.css';
+import CreateForm from "../components/LoginCreateAccountForm.js"
 
-
-function Login(){
-
+function Login(props){
     return(
-        <div>
-            <h1>Login</h1>
-
-            <Link to='/feed' className={classes.link}>Feed</Link>
-
-        </div>
+        <CreateForm 
+            header="Login"
+            button="Login"
+        />
     )
 }
 
