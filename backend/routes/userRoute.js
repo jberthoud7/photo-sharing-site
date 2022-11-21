@@ -1,12 +1,17 @@
 import { getUsers, getUserById } from "../controllers/userController.js";
-import express from 'express'
-const router = express.Router()
-
+import { createUser } from "../controllers/userController.js";
+import express from 'express';
+const userRoutes = express.Router();
 
 // express router method to create route for getting all users
-router.route('/').get(getUsers)
+//userRoutes.route('/').get(getUsers)
 
 // express router method to create route for getting users by id
-router.route('/:id').get(getUserById)
+//router.route('/:id').get(getUserById)
 
-export default router
+
+userRoutes.route("/registeraa").post(createUser)
+
+
+
+export default userRoutes

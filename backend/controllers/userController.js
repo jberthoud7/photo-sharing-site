@@ -1,5 +1,7 @@
 import User from '../models/userModel.js'
 import asyncHandler from 'express-async-handler'
+import connectDB from '../config/db.js'
+import mongoose from 'mongoose'
 
 //getUsers function to get all users
 export const getUsers = asyncHandler(async(req, res) => {
@@ -19,4 +21,30 @@ export const getUserById  = asyncHandler(async(req, res) => {
         res.status(404)
         throw new Error('User not found')
     }
+})
+
+export const createUser = asyncHandler(async(req, res) => {
+    console.log("Calling create user");
+
+    //TODO: hash and salt password
+
+    // let userObj = {
+    //     username: req.body.username,
+    //     hashed_pswd: req.body.password,
+    // };
+    
+    // let conn = mongoose.connection;
+    // conn.collection('mod7').insertOne(newUser, function(err, res){
+    //     if(err) throw err;
+    //     console.log("user created from userController.js");
+    // });
+
+
+    // const newUser = userData;
+
+    // let conn = mongoose.connection;
+    // conn.collection('mod7').insertOne(newUser, function(err, res){
+    //     if(err) throw err;
+    //     console.log("user created (from userController.js");
+    // });
 })
