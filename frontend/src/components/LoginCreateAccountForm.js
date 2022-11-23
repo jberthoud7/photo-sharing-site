@@ -17,24 +17,17 @@ function CreateForm (props) {
         };
         
         console.log(userData);
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
 
-        props.sendInputsBack(userData)
-
-
-        // await fetch("http://localhost:3000/registeraa", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify(userData)
-        // });
+        props.sendInputsBack(userData);
     }
 
     return (
     <div className={classes.centerContainer}>
         <div className={classes.container}>
             <h2 className={classes.header}>{props.header}</h2>
-            <form className={classes.form} onSubmit={submitHandler}>
+            <form className={classes.form} onSubmit={submitHandler} id="loginRegisterForm">
                 <div>
                 <input type="text" required id="username" placeholder="Username" ref={usernameRef}/>
                 </div>
