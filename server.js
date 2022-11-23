@@ -1,7 +1,7 @@
 import connectDB from './backend/config/db.js'
-import userRoutes from './backend/routes/userRoute.js'
 import express from 'express'
 import dotenv  from 'dotenv'
+import User from './backend/models/userModel.js'
 
 //connect database
 connectDB()
@@ -10,9 +10,19 @@ connectDB()
 dotenv.config()
 
 const app = express()
+app.use(express.json())
 
-//Creating API for user
-app.use('/api/users', userRoutes)
+//POST to create new account
+app.post('/createAccount', (req, res) => {
+    const { parcel} = req.body
+    if(!parcel){
+        return res.status(400).send({status: 'POST failed'})
+    }
+    res.status(200).send({status: 'recieved'})
+    const newUser = new User({username: parcel.username, hashed_pswd: parcel.password})
+    console.log(newUser)
+    newUser.save()
+})
 
 const PORT = process.env.PORT || 5000
 

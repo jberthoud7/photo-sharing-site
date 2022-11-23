@@ -16,12 +16,13 @@ function Register(props){
     }
 
     async function createAccount (userData) {
-        await fetch("http://localhost:3000/registeraa", {
+        console.log("calling createAccount");
+        await fetch("http://localhost:3000/createAccount", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(userData)
+            body: JSON.stringify({parcel: userData})
         });
     }
 

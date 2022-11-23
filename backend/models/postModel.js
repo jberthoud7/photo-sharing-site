@@ -21,6 +21,8 @@ const postSchema = mongoose.Schema({
     timestamps: true
 })
 
-const Post = mongoose.model('Post', postSchema)
+
+//mongoose.model("COLLECTION NAME". ___Schema)
+const Post = mongoose.model('posts', postSchema)
 
 export default Post
