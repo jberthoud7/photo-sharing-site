@@ -10,13 +10,11 @@ function Register(props){
 
     // gets back the form data when submit is clicked
     const formToRegister = (formData) => {
-        console.log(formData);
-
         createAccount(formData);
     }
 
     async function createAccount (userData) {
-        console.log("calling createAccount");
+        // console.log("calling createAccount");
         await fetch("http://localhost:3000/createAccount", {
             method: "POST",
             headers: {

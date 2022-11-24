@@ -20,9 +20,31 @@ app.post('/createAccount', (req, res) => {
     }
     res.status(200).send({status: 'recieved'})
     const newUser = new User({username: parcel.username, hashed_pswd: parcel.password})
-    console.log(newUser)
+    console.log("Creating user ", parcel.username)
     newUser.save()
 })
+
+//GET to check if user exists for login
+app.get('/getUser:dynamic', (req, res) => {
+    const {dynamic} = req.params
+    User.find({username: dynamic}, "username hashed_pswd", (err, users) =>
+    {
+        if(err){
+            res.status(400).send({status: 'GET failed'})
+        }
+        if(users.length == 0){
+            res.status(200).send({status: 'User does not exist'})
+        }
+        else{
+            // console.log(users)
+            // console.log("pswd:", users[0].hashed_pswd)
+            res.status(200).send({status: 'User exists', hashed_pswd: users[0].hashed_pswd})
+        }
+    })
+
+})
+
+
 
 const PORT = process.env.PORT || 5000
 
