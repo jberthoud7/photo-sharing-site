@@ -3,8 +3,11 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import CreateForm from "../components/LoginCreateAccountForm.js"
 import bcrypt from 'bcryptjs'
+import { useNavigate } from 'react-router-dom'
 
 function Login(props){
+
+    const navigate = useNavigate();
 
     // tutorial used: https://www.freecodecamp.org/news/pass-data-between-components-in-react/
     // dont know if we need this next line
@@ -30,6 +33,9 @@ function Login(props){
             }
         });
         const data = await res.json()
+        let loginSuccess = false;
+
+
         if(data.status == 'User does not exist'){
             console.log('DNE')
         }
@@ -42,9 +48,15 @@ function Login(props){
                 // console.log(data.hashed_pswd)
                 if(result){
                     console.log("logged in")
+                    loginSuccess = true
                 }
                 else{
                     console.log("login failed")
+                }
+            })
+            .then(() => {
+                if(loginSuccess){
+                    navigate('/Feed');
                 }
             })
         }

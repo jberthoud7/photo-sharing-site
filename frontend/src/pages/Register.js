@@ -1,8 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import CreateForm from "../components/LoginCreateAccountForm.js"
 
 function Register(props){
+
+    const navigate = useNavigate();
 
     // tutorial used: https://www.freecodecamp.org/news/pass-data-between-components-in-react/
     // dont know if we need this next line
@@ -21,7 +24,10 @@ function Register(props){
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({parcel: userData})
-        });
+        })
+        .then(() => {
+            navigate('/Feed')
+        })
     }
 
 
