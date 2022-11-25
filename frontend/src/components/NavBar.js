@@ -1,9 +1,9 @@
 import classes from '../components/componentsStyles/NavBar.module.css';
+import { NavLink } from 'react-router-dom';
 
 
 
 function NavBar(props){
-
 
 
     return(
@@ -12,9 +12,10 @@ function NavBar(props){
                 <h3>Website Name</h3>
             </div>
             <div className={classes.linkContainer}>
-                <h3>Followers</h3>
-                <h3>Logout</h3> 
-                <h3>Delete Account</h3>
+                <NavLink to="/CreateNewPost" className={classes.link}>Create a Post</NavLink>
+                <NavLink className={classes.link}>Followers</NavLink>
+                <NavLink to="/" className={classes.link}>Logout</NavLink> 
+                <NavLink className={classes.link}>Delete Account</NavLink>
             </div>
 
         </div>

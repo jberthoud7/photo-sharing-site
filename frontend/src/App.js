@@ -4,6 +4,7 @@ import StartScreen from './pages/StartScreen'
 import Feed from './pages/Feed'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import CreateNewPost from './pages/CreateNewPost'
 import { Route, Routes } from 'react-router-dom'
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
         <Route path='feed' element={<Feed />} />
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
+        <Route path='CreateNewPost' element={<CreateNewPost />} />
       </Routes>
     </div>
   )
