@@ -2,6 +2,7 @@ import connectDB from './backend/config/db.js'
 import express from 'express'
 import dotenv  from 'dotenv'
 import User from './backend/models/userModel.js'
+import multer from 'multer'
 
 //connect database
 connectDB()
@@ -9,6 +10,7 @@ connectDB()
 //dotenv config
 dotenv.config()
 
+// Should this be moved to a diff file in middleware? 
 const app = express()
 app.use(express.json())
 
@@ -42,6 +44,34 @@ app.get('/getUser:dynamic', (req, res) => {
         }
     })
 
+})
+
+// POST for uploading photos
+app.post('/uploadPhoto', upload.single("file"), async (req, res) => {
+    // req.file access all the file properties
+    try {
+        // check if image or not
+        if (!req.file) {
+            res.json({
+                success: false,
+                message: "Please upload a file"
+            });
+        } else {
+            let imageToUpload = {
+                file: {
+                    data: req.file.buffer
+                    contentType: req.file.mimetype
+                },
+                fileName: req.body.fileName
+            };
+            const uploadImage = new Upload(imageToUpload);
+            // saves image to the database
+            const upload = await uploadObject.save();
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
+    }
 })
 
 

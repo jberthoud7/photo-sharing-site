@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import CreateNewPost from './pages/CreateNewPost'
 import { Route, Routes } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   // const [users, setUsers] = useState([])

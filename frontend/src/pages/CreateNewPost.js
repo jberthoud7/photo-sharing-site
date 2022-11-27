@@ -13,18 +13,18 @@ function CreateNewPost(props) {
 
     return (
         <div className={classes.centerContainer}>
-            <div className={classes.container}>
-                <h2 className={classes.header}>Create A New Post</h2>
-                <form className={classes.form} onSubmit={createPost} id="createNewPost">
-                    <div>
-                        <input type="image" alt="Upload an image" />
-                    </div>
-                    <div>
-                        <input type="text" required id="caption" placeholder="Caption..." />
-                    </div>
-                    <button type="sumbit"> Create Post</button>
-                </form>
-            </div>
+            <h2 className={classes.header}>Create A New Post</h2>
+                <div className={classes.container}>
+                    <form className={classes.form} action="/upload" method="POST" enctype="multipart/form-data" id="createNewPost">
+                        <div>
+                            <input type="file" class="form-control" name="file" id="formImage" alt="Upload an image" />
+                        </div>
+                        <div class=''>
+                            <input type="text" required id="caption" placeholder="Caption..." />
+                        </div>
+                        <button type="sumbit"> Create Post</button>
+                    </form>
+                </div>
         </div>
     )
 }
