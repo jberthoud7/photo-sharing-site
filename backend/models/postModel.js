@@ -1,7 +1,10 @@
 import mongoose from 'mongoose'
 
-const postSchema = mongoose.Schema({
-    //image 
+const postSchema = new mongoose.Schema({
+    img: {
+        data: Buffer,
+        contentType: String
+    },
     caption: {
         type: String,
         required: true
@@ -23,6 +26,6 @@ const postSchema = mongoose.Schema({
 
 
 //mongoose.model("COLLECTION NAME". ___Schema)
-const Post = mongoose.model('posts', postSchema)
+const Post = mongoose.model('post', postSchema)
 
 export default Post
