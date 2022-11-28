@@ -47,7 +47,7 @@ app.get('/getUser:dynamic', (req, res) => {
 })
 
 // POST for uploading photos
-app.post('/uploadPhoto', upload.single("file"), async (req, res) => {
+app.post('/upload', upload.single("file"), async (req, res) => {
     // req.file access all the file properties
     try {
         // check if image or not

@@ -4,13 +4,6 @@ import classes from "./pagesStyles/CreateNewPost.module.css"
 
 function CreateNewPost(props) {
 
-    // includes: spot for uploading an image 
-    // and text entry box for caption
-
-    function createPost() {
-
-    }
-
     return (
         <div className={classes.centerContainer}>
             <h2 className={classes.header}>Create A New Post</h2>
