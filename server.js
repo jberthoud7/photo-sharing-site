@@ -111,7 +111,18 @@ app.delete('/deleteUser', (req, res) => {
     })
 })
 
-
+app.get('/getFollowingUsers', (req, res) => {
+    Post.find({username: "carolina"}, "followers", (err, followers) =>
+    {
+        console.log(followers)
+        if(err){
+            res.status(400).send({status: 'GET failed'})
+        }
+        else {
+            res.status(200).send({status: 'Followers', data: followers})
+        }
+    })
+})
 
 const PORT = process.env.PORT || 5000
 

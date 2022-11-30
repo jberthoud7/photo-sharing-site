@@ -1,21 +1,62 @@
-import classes from "./pagesStyles/Followers.module.css";
+import React from "react";
+import NavBar from "../components/NavBar"
+import UsersFollowing from "../components/UsersFollowing";
+import classes from "./pagesStyles/Feed.module.css"
 import axios from 'axios';
-import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
 
+class Followers extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        data: []
+      };
+    }
+  
+    // need to be able to get username of the person logged in
+    //https://stackoverflow.com/questions/42420531/what-is-the-best-way-to-manage-a-users-session-in-react
+    componentDidMount() {
+        axios.get('http://localhost:3000/getFollowingUsers')
+            .then((res) => {
+                console.log("success");
+                console.log(res.data.data[0]);
+                this.setState({
+                    data: res.data.data
+                });
+            })
+            .catch(err => {
+                console.log("error");
+                console.log(err);
+            });
+    }
+    // componentDidUpdate() {
+    //     axios.get('http://localhost:3000/getPost')
+    //         .then((res) => {
+    //             console.log("success");
+    //             console.log(res.data);
+    //         })
+    //         .catch(err => {
+    //             console.log("error");
+    //             console.log(err);
+    //         });
+    // }
 
-function Followers () {
-
-    // similar axios to GET posts, needs to be an async function
-
-    return (
-        <div className={classes.centerContainer}>
-            <h2 className={classes.header}>Followers</h2>
-            <div className={classes.container}> 
-                
+    render() {
+        const children = this.state.data.map((user) => (
+            <UsersFollowing
+                    username={user.username}
+                />
+        ))
+        return (
+            <div>
+                <NavBar />
+                <div className={classes.centercontainer}>
+                    <ul className={classes.list}>
+                        {children}
+                    </ul>
+                </div>
             </div>
-        </div>
-    )
-}
+        );
+    }
+  }
 
-export default Followers
+  export default Followers;

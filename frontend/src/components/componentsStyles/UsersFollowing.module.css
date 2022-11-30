@@ -1,0 +1,22 @@
+.container{
+    margin: 20px;
+    margin-bottom: 10%;
+    margin-top: 5%;
+}
+
+.text{
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.users{
+
+}
+
+.centerContainer {
+    margin: auto;
+    width: 50%;
+    border: 3px solid #800040;
+    padding: 10px;
+    text-align: center;
+}
