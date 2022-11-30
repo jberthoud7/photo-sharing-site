@@ -59,10 +59,7 @@ const storage = multer.diskStorage({
     }
 })
 
-const upload = multer({storage: storage});
-multer({
-    limits: { fieldSize: 2 * 1024 * 1024 }
-  })
+const upload = multer({storage: storage, limits: { fieldSize: 25 * 1024 * 1024 }});
 
 // POST for uploading photos
 app.post('/createPost', upload.single("photo"), (req, res) => {

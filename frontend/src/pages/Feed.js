@@ -8,10 +8,7 @@ class Feed extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        id: '',
-        image: '',
-        caption:'',
-        likes: 0
+        data: []
       };
     }
   
@@ -21,10 +18,7 @@ class Feed extends React.Component {
                 console.log("success");
                 console.log(res.data);
                 this.setState({
-                    id: res.data.data[0].id,
-                    image: res.data.data[0].image,
-                    caption: res.data.data[0].caption,
-                    likes: res.data.data[0].likes
+                    data: res.data.data
                 });
             })
             .catch(err => {
@@ -43,21 +37,24 @@ class Feed extends React.Component {
     //             console.log(err);
     //         });
     // }
-  
+
     render() {
-      return (
-        <div>
-            <NavBar />
-            <ul className={classes.list}>
-                <Post 
-                    key={this.state.id} 
-                    img={this.state.image}
-                    caption={this.state.caption}
+        const children = this.state.data.map((post) => (
+            <Post 
+                    key={post._id} 
+                    img={post.image}
+                    caption={post.caption}
                     username="1234"
                 />
-            </ul>
-        </div>
-      );
+        ))
+        return (
+            <div>
+                <NavBar />
+                <ul className={classes.list}>
+                    {children}
+                </ul>
+            </div>
+        );
     }
   }
 
