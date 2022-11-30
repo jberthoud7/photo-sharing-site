@@ -7,7 +7,7 @@ import axios from 'axios';
 const DUMMY_DATA = [
     {
         id: '1',
-        img: 'https://s3.us-east-1.amazonaws.com/florence-2019/images/_1200x630_crop_center-center_82_none/chick1.jpg?mtime=20201009125544',
+        image: 'https://s3.us-east-1.amazonaws.com/florence-2019/images/_1200x630_crop_center-center_82_none/chick1.jpg?mtime=20201009125544',
         caption: 'this is the first post',
         user_id: 'AAA111AAA',
         username: 'user1',
@@ -19,7 +19,7 @@ const DUMMY_DATA = [
     },
     {
         id: '2',
-        img: 'https://brandlogos.net/wp-content/uploads/2022/02/chick-fil-a-logo-brandlogos.net_-512x512.png',
+        image: 'https://brandlogos.net/wp-content/uploads/2022/02/chick-fil-a-logo-brandlogos.net_-512x512.png',
         caption: 'this is the second post',
         user_id: '222BBB222',
         username: 'user2',
@@ -31,19 +31,23 @@ const DUMMY_DATA = [
     }
 ]
 
-axios.get('http://localhost:3000/getPost')
-    .then((res) => {
-        console.log("success");
-        console.log(res.data);
-
-    })
-    .catch(err => {
-        console.log("error");
-        console.log(err);
-    });
-
 
 function Feed(props){
+
+    axios.get('http://localhost:3000/getPost')
+        .then((res) => {
+            console.log("success");
+            console.log(res.data);
+            return (<Post 
+                img={res.data.image}
+                caption={res.data.caption}
+                username={res.data.username}
+            />)
+        })
+        .catch(err => {
+            console.log("error");
+            console.log(err);
+        });
 
     return(
         <div>
