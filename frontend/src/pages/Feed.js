@@ -38,11 +38,6 @@ function Feed(props){
         .then((res) => {
             console.log("success");
             console.log(res.data);
-            return (<Post 
-                img={res.data.image}
-                caption={res.data.caption}
-                username={res.data.username}
-            />)
         })
         .catch(err => {
             console.log("error");
