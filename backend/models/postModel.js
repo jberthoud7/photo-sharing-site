@@ -1,9 +1,9 @@
 import mongoose from 'mongoose'
 
 const postSchema = new mongoose.Schema({
-    img: {
-        data: Buffer,
-        contentType: String
+    image: {
+        type: String,
+        required: true
     },
     caption: {
         type: String,

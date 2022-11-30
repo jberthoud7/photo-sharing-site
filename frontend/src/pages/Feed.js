@@ -2,6 +2,7 @@
 import NavBar from "../components/NavBar"
 import Post from "../components/Post";
 import classes from "./pagesStyles/Feed.module.css"
+import axios from 'axios';
 
 const DUMMY_DATA = [
     {
@@ -30,6 +31,18 @@ const DUMMY_DATA = [
     }
 ]
 
+axios.get('http://localhost:3000/getPost')
+    .then((res) => {
+        console.log("success");
+        console.log(res.data);
+
+    })
+    .catch(err => {
+        console.log("error");
+        console.log(err);
+    });
+
+
 function Feed(props){
 
     return(
@@ -39,7 +52,7 @@ function Feed(props){
                 {DUMMY_DATA.map(post => (
                 <Post 
                     key={post.id} 
-                    img={post.img}
+                    img={post.image}
                     caption={post.caption}
                     username={post.username}
                 />))}

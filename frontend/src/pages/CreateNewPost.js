@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import classes from "./pagesStyles/CreateNewPost.module.css"
+import classes from "./pagesStyles/CreateNewPost.module.css";
+import { useNavigate } from 'react-router-dom'
 
 
 function CreateNewPost(props) {
+
+    const navigate = useNavigate();
 
     const [newPost, setNewPost] = useState( {
         user_id: '1234',
@@ -17,22 +20,37 @@ function CreateNewPost(props) {
         const formData = new FormData();
         // how to get the user_id
         formData.append('user_id', newPost.user_id)
-        formData.append('imageName', newPost.image);
+        formData.append('image', newPost.image);
         formData.append('caption', newPost.caption);
         formData.append('likes', newPost.likes);
-
+        
         axios.post('http://localhost:3000/createPost', formData)
             .then(res => {
                 console.log(res);
-                console.log("this is a return!")
+                navigate('/Feed');
             })
             .catch(err => {
                 console.log(err);
             });
     } 
+
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+          const fileReader = new FileReader();
+          fileReader.readAsDataURL(file);
+          fileReader.onload = () => {
+            resolve(fileReader.result);
+          };
+          fileReader.onerror = (error) => {
+            reject(error);
+          };
+        });
+    };
     
-    const handlePhoto = (e) => {
-        setNewPost({...newPost, photo: e.target.files[0]});
+    const handlePhoto = async (e) => {
+        const file = e.target.files[0];
+        const base64 = await convertToBase64(file);
+        setNewPost({...newPost, image: base64});
     }
 
     const handleCaptionChange = (e) => {

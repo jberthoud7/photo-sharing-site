@@ -48,7 +48,6 @@ app.get('/getUser:dynamic', (req, res) => {
             res.status(200).send({status: 'User exists', hashed_pswd: users[0].hashed_pswd})
         }
     })
-
 })
 
 const storage = multer.diskStorage({
@@ -61,6 +60,9 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({storage: storage});
+multer({
+    limits: { fieldSize: 2 * 1024 * 1024 }
+  })
 
 // POST for uploading photos
 app.post('/createPost', upload.single("photo"), (req, res) => {
@@ -82,6 +84,20 @@ app.post('/createPost', upload.single("photo"), (req, res) => {
     newPost.save()
         .then(() => res.json("Post Added"))
         .catch(err => res.status(400).json("Error: " + err));
+})
+
+app.get('/getPost', (req, res) => {
+    //const {dynamic} = req.params
+    Post.find({user_id: "1234"}, "image caption likes", (err, posts) =>
+    {
+        console.log(posts)
+        if(err){
+            res.status(400).send({status: 'GET failed'})
+        }
+        else {
+            res.status(200).send({status: 'Posts', data: posts})
+        }
+    })
 })
 
 
