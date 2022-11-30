@@ -101,6 +101,20 @@ app.get('/getPost', (req, res) => {
 })
 
 
+app.delete('/deleteUser', (req, res) => {
+    const username = req.query.username
+    User.remove({username: username}, (err, users) =>
+    {
+        if(err){
+            res.status(400).send({status: 'GET failed'})
+        }
+        else{
+            res.status(200).send({status: 'User deleted'})
+        }
+    })
+})
+
+
 
 const PORT = process.env.PORT || 5000
 
