@@ -15,17 +15,10 @@ function Login(props){
 
     // gets back the form data when submit is clicked
     const formToLogin = (formData) => {
-
-        //https://coderrocketfuel.com/article/store-passwords-in-mongodb-with-node-js-mongoose-and-bcrypt
-        //use bcrypt compare(userEnteredPswd, hashedPswd)
-
-        //need to get pswd where userEnteredUsername = db username
-
         getUsernameAndPassword(formData)
     }
 
     async function getUsernameAndPassword (userData) {
-        // console.log("calling getUsernameAndPassword");
         const res = await fetch("http://localhost:3000/getUser" + userData.username, {
             method: "GET",
             headers: {
@@ -40,12 +33,8 @@ function Login(props){
             console.log('DNE')
         }
         else if(data.status == 'User exists'){
-            // console.log("user exists")
-            // console.log(data.hashed_pswd)
             bcrypt.compare(userData.password, data.hashed_pswd)
             .then(function(result){
-                // console.log(userData.password)
-                // console.log(data.hashed_pswd)
                 if(result){
                     console.log("logged in")
                     loginSuccess = true
@@ -56,6 +45,7 @@ function Login(props){
             })
             .then(() => {
                 if(loginSuccess){
+                    sessionStorage.setItem("user", userData.username)
                     navigate('/Feed');
                 }
             })
@@ -74,3 +64,5 @@ function Login(props){
 }
 
 export default Login
+
+

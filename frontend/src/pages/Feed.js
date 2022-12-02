@@ -13,7 +13,8 @@ class Feed extends React.Component {
     }
   
     componentDidMount() {
-        axios.get('http://localhost:3000/getPost')
+        
+        axios.get('http://localhost:3000/getPost', {data: "a"})
             .then((res) => {
                 console.log("success");
                 console.log(res.data);

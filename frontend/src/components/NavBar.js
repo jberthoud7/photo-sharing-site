@@ -13,7 +13,7 @@ function NavBar(props){
             </div>
             <div className={classes.linkContainer}>
                 <NavLink to="/CreateNewPost" className={classes.link}>{MdOutlinePhotoCameraBack}</NavLink>
-                <NavLink to="/Followers" className={classes.link}>{MdGroups}</NavLink>
+                <NavLink to="/Following" className={classes.link}>{MdGroups}</NavLink>
                 <NavLink to="/" className={classes.link}>{MdLogout}</NavLink> 
                 <NavLink to="/DeleteAccount" className={classes.link}>{MdDeleteForever}</NavLink>
             </div>

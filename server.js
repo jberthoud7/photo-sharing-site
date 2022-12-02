@@ -1,5 +1,7 @@
 import connectDB from './backend/config/db.js';
 import express from 'express';
+// import session from 'express-session';
+// import MongoStore from 'connect-mongo';
 import dotenv  from 'dotenv';
 import User from './backend/models/userModel.js';
 import Post from './backend/models/postModel.js';
@@ -18,15 +20,40 @@ dotenv.config()
 const app = express()
 app.use(cors())
 app.use(express.json())
+// app.use(session({
+//     secret: process.env.SESSION_SECRET,
+//     saveUninitialized: true,
+//     resave: false,
+//     cookie: {
+//         httpOnly: true,
+//         maxAge: 24 * 60 * 60 * 1000 * 14
+//     }
+    
+//     // store: MongoStore.create({
+//     //     mongoUrl: 'mongodb://localhost:27017/mod7',
+//     //     mongoOptions
+//     // })
+// }))
+//app.use(cookieParser())
+
 
 //POST to create new account
 app.post('/createAccount', (req, res) => {
+    
     const { parcel} = req.body
     if(!parcel){
         return res.status(400).send({status: 'POST failed'})
     }
     res.status(200).send({status: 'recieved'})
-    const newUser = new User({username: parcel.username, hashed_pswd: parcel.password})
+    // req.session.user = {
+    //     uuid: parcel.username
+    // }
+
+    //req.session.user = parcel.username
+
+    //sessionStorage.setItem("user", parcel.username)
+
+    const newUser = new User({username: parcel.username, hashed_pswd: parcel.password, following: [parcel.username]})
     console.log("Creating user ", parcel.username)
     newUser.save()
 })
@@ -43,8 +70,6 @@ app.get('/getUser:dynamic', (req, res) => {
             res.status(200).send({status: 'User does not exist'})
         }
         else{
-            // console.log(users)
-            // console.log("pswd:", users[0].hashed_pswd)
             res.status(200).send({status: 'User exists', hashed_pswd: users[0].hashed_pswd})
         }
     })
@@ -85,9 +110,10 @@ app.post('/createPost', upload.single("photo"), (req, res) => {
 
 app.get('/getPost', (req, res) => {
     //const {dynamic} = req.params
-    Post.find({user_id: "1234"}, "image caption likes", (err, posts) =>
+    console.log(req.data)
+    Post.find({user_id: req.params.username}, "image caption likes", (err, posts) =>
     {
-        console.log(posts)
+        //console.log(posts)
         if(err){
             res.status(400).send({status: 'GET failed'})
         }
@@ -111,15 +137,34 @@ app.delete('/deleteUser', (req, res) => {
     })
 })
 
-app.get('/getFollowingUsers', (req, res) => {
-    Post.find({username: "carolina"}, "followers", (err, followers) =>
+app.get('/getFollowingUsers:dynamic', (req, res) => {
+
+    const{dynamic} = req.params
+    User.find({username: dynamic}, "following", (err, result) =>
     {
-        console.log(followers)
         if(err){
-            res.status(400).send({status: 'GET failed'})
+            res.status(400).send({status: 'failed'})
         }
         else {
-            res.status(200).send({status: 'Followers', data: followers})
+            res.status(200).send({status: 'success', followingList: result[0].following})
+        }
+    })
+})
+
+
+app.post('/followUser', (req, res) => {
+    const userToFollow = req.body.userToFollow
+    const userFollowing = req.body.userFollowing
+
+    const query = {username: userFollowing}
+
+    User.findOneAndUpdate(query, {$push: {following: userToFollow}}, {returnOriginal: false}, function(err, success){
+        if(err){
+            console.log(err)
+            res.status(400).send({status: "follow user failed"})
+        }
+        else{
+            res.status(200).send({status: "added follower", followingList: success.following})
         }
     })
 })

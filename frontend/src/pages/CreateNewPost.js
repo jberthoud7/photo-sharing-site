@@ -9,7 +9,7 @@ function CreateNewPost(props) {
     const navigate = useNavigate();
 
     const [newPost, setNewPost] = useState( {
-        user_id: '1234',
+        user_id: sessionStorage.getItem('user'),
         image: '',
         caption: '',
         likes: 0
