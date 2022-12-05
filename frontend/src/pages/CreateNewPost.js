@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import classes from "./pagesStyles/CreateNewPost.module.css";
 import { useNavigate } from 'react-router-dom'
+import NavBar from "../components/NavBar"
 
 
 function CreateNewPost(props) {
@@ -58,32 +59,35 @@ function CreateNewPost(props) {
     }
 
     return (
-        <div className={classes.centerContainer}>
-            <h2 className={classes.header}>Create A New Post</h2>
-                <div className={classes.container}>
-                    <form className={classes.form} onSubmit={handleSubmit} encType="multipart/form-data" id="createNewPost">
-                        <div>
-                            <input 
-                            type="file"
-                            className="form-control"
-                            accept=".png, .jpg, .jpeg"
-                            name="photo" 
-                            alt="Upload an image" 
-                            onChange={handlePhoto}
-                            />
-                        </div>
-                        <div>
-                            <input 
-                            type="text" 
-                            id="caption" 
-                            placeholder="Caption..." 
-                            onChange={handleCaptionChange}
-                            required
-                            />
-                        </div>
-                        <button type="sumbit"> Create Post</button>
-                    </form>
-                </div>
+        <div>
+            <NavBar />
+            <div className={classes.centerContainer}>
+                <h2 className={classes.header}>Create A New Post</h2>
+                    <div className={classes.container}>
+                        <form className={classes.form} onSubmit={handleSubmit} encType="multipart/form-data" id="createNewPost">
+                            <div>
+                                <input 
+                                type="file"
+                                className="form-control"
+                                accept=".png, .jpg, .jpeg"
+                                name="photo" 
+                                alt="Upload an image" 
+                                onChange={handlePhoto}
+                                />
+                            </div>
+                            <div>
+                                <input 
+                                type="text" 
+                                id="caption" 
+                                placeholder="Caption..." 
+                                onChange={handleCaptionChange}
+                                required
+                                />
+                            </div>
+                            <button type="sumbit"> Create Post</button>
+                        </form>
+                    </div>
+            </div>
         </div>
     )
 }

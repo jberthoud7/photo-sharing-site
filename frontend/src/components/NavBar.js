@@ -1,6 +1,6 @@
 import classes from '../components/componentsStyles/NavBar.module.css';
 import { NavLink } from 'react-router-dom';
-import {MdOutlinePhotoCameraBack, MdGroups, MdLogout, MdDeleteForever} from "react-icons/md";
+import {MdOutlinePhotoCameraBack, MdGroups, MdLogout, MdDeleteForever,MdOutlineHome} from "react-icons/md";
 
 
 
@@ -12,6 +12,7 @@ function NavBar(props){
                 <h3>Website Name</h3>
             </div>
             <div className={classes.linkContainer}>
+                <NavLink to="/Feed" className={classes.link}>{MdOutlineHome}</NavLink>
                 <NavLink to="/CreateNewPost" className={classes.link}>{MdOutlinePhotoCameraBack}</NavLink>
                 <NavLink to="/Following" className={classes.link}>{MdGroups}</NavLink>
                 <NavLink to="/" className={classes.link}>{MdLogout}</NavLink> 
