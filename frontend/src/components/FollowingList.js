@@ -1,22 +1,28 @@
+import { useState, useEffect } from 'react'
+
 function FollowingList(props){
 
-    const followingList = props.followingList
-
     console.log("IN LIST COMP")
-    console.log(followingList)
 
+    useEffect(()=> {
+            props.getFollowedUsers()
+    }, [])
 
-    return(
-        <div>
-            <ul>
-                {followingList.map((user) => {
-                    return <li>{user}</li>
-                })}
-            </ul>
-        </div>
-        
+    if(props.followingList != null){
+        return(
+            <div>
+                <ul>
+                    {
+                        props.followingList.map((user) => {
+                            return <li key={user}>{user}</li>
+                        })}
+                    
+                </ul>
+            </div>
+            
 
-    )
+        )
+    }
 }
 
 export default FollowingList

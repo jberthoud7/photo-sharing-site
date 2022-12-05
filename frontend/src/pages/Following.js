@@ -1,41 +1,40 @@
 import React from "react";
 import NavBar from "../components/NavBar"
-import UsersFollowing from "../components/UsersFollowing";
 import classes from "./pagesStyles/Feed.module.css"
-import axios from 'axios';
 import FollowUserForm from "../components/FollowUserForm";
 import FollowingList from "../components/FollowingList";
+import { useState, useEffect } from 'react'
 
   
 function Following(props){
-
-    let followingList = null;
-
-    getFollowedUsers();
-
-    
 
     //pass thru method to send data from form to followUser
     const formToFollow = (formData) => {
         followUser(formData)
     }
 
-    async function getFollowedUsers (){
-        console.log("this happens")
-        const user = sessionStorage.getItem("user")
-       
+    const [followingList, setFollowingList] = new useState(null);
 
-        const res = await fetch("http://localhost:3000/getFollowingUsers" + user, {
+    function getFollowedUsers (){
+        
+        const user = sessionStorage.getItem("user")
+        // console.log("start of getFollowedUsers")
+        // console.log(user)
+
+        fetch("http://localhost:3000/getFollowingUsers" + user, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             }
-        });
-        const data = await res.json();
-        if(data.status == 'success'){
-            followingList = data.followingList;
-        }
-        
+        })
+        .then(response => response.json())
+        .then((data) => {
+            setFollowingList(data.followingList);
+            // console.log("in getFollowedUsers")
+            // console.log(followingList)
+        })
+
+        return followingList
     }
 
     async function followUser (userData) {
@@ -50,12 +49,8 @@ function Following(props){
                 userToFollow: userData.userToFollow
             })
         })
-
-        const data = await res.json()
-        
-        followingList = data.followingList
-
-
+        .then(response => response.json())
+        .then(getFollowedUsers())
 
     }
 
@@ -68,6 +63,7 @@ function Following(props){
             />
             <FollowingList
                 followingList={followingList}
+                getFollowedUsers = {getFollowedUsers}
             />
 
         </div>

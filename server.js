@@ -108,17 +108,20 @@ app.post('/createPost', upload.single("photo"), (req, res) => {
         .catch(err => res.status(400).json("Error: " + err));
 })
 
-app.get('/getPost', (req, res) => {
-    //const {dynamic} = req.params
-    console.log(req.data)
-    Post.find({user_id: req.params.username}, "image caption likes", (err, posts) =>
+app.post('/getPost', (req, res) => {
+    console.log("QUERY CALLED")
+    const userList = req.body.users
+    console.log(userList)
+    Post.find({user_id: {"$in" : userList}}, "image caption likes", (err, posts) =>
     {
         //console.log(posts)
         if(err){
             res.status(400).send({status: 'GET failed'})
         }
         else {
-            res.status(200).send({status: 'Posts', data: posts})
+            //console.log(posts)
+            console.log(posts[0].caption)
+            res.status(200).send({data: posts})
         }
     })
 })
