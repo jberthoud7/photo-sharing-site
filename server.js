@@ -112,7 +112,7 @@ app.post('/getPost', (req, res) => {
     console.log("QUERY CALLED")
     const userList = req.body.users
     console.log(userList)
-    Post.find({user_id: {"$in" : userList}}, "image caption likes", (err, posts) =>
+    Post.find({user_id: {"$in" : userList}}, "image caption user_id likes", (err, posts) =>
     {
         //console.log(posts)
         if(err){
@@ -120,7 +120,7 @@ app.post('/getPost', (req, res) => {
         }
         else {
             //console.log(posts)
-            console.log(posts[0].caption)
+            //console.log(posts[0].caption)
             res.status(200).send({data: posts})
         }
     })
