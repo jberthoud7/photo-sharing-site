@@ -16,6 +16,13 @@ function Post(props){
                         postId: e.target.id
                     })
                 })
+                .then(response => response.json())
+                .then((res => {
+                    const likeId = e.target.id + "L"
+                    let likes = document.getElementById(likeId) 
+                    likes.innerHTML = res.newLikes
+                }))
+                
     }
 
 
@@ -28,7 +35,7 @@ function Post(props){
             <div className={classes.text}>
                 <h2>{props.username}</h2>
                 <p>{props.caption}</p>
-                <p>{props.likes}</p>
+                <p id={props.propId + "L"}>{props.likes}</p>
                 <button id={props.propId} onClick={updateLikes}>Like</button>
             </div>
         </div>

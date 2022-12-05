@@ -175,15 +175,16 @@ app.post('/followUser', (req, res) => {
 app.post('/updateLikes', (req, res) => {
     
     const id = req.body.postId
-    const query = {'_id': id}
-    console.log(query)
-    User.updateOne(query, {$inc: {likes: 1}}, {returnOriginal: false}, function(err, success){
+    //const id = "ObjectId('" + req.body.postId + "')"
+    console.log(id)
+    Post.findByIdAndUpdate({'_id': id}, {$inc: {'likes': 1}}, {returnOriginal: false}, function(err, success){
+        //.then to directly update likes
         if(err){
             console.log(err)
             res.status(400).send({status: "update likes failed"})
         }
         else{
-            res.status(200).send({status: "updated likes"})
+            res.status(200).send({status: "updated likes", newLikes: success.likes})
         }
     })
 })
