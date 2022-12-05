@@ -97,10 +97,12 @@ class Feed extends React.Component{
         console.log(this.state.data)
         const children = this.state.data.map((post) => (
             <Post 
+                    propId={post._id}
                     key={post._id} 
                     img={post.image}
                     caption={post.caption}
                     username={post.user_id}
+                    likes={post.likes}
                 />
         ))
         return (

@@ -1,7 +1,5 @@
 import connectDB from './backend/config/db.js';
 import express from 'express';
-// import session from 'express-session';
-// import MongoStore from 'connect-mongo';
 import dotenv  from 'dotenv';
 import User from './backend/models/userModel.js';
 import Post from './backend/models/postModel.js';
@@ -9,6 +7,8 @@ import cors from 'cors';
 import * as path from 'path';
 import multer from 'multer';
 import { uuid } from 'uuidv4';
+
+import  {ObjectId}  from 'mongodb';
 
 //connect database
 connectDB()
@@ -112,7 +112,7 @@ app.post('/getPost', (req, res) => {
     console.log("QUERY CALLED")
     const userList = req.body.users
     console.log(userList)
-    Post.find({user_id: {"$in" : userList}}, "image caption user_id likes", (err, posts) =>
+    Post.find({user_id: {"$in" : userList}}, "_id image caption user_id likes", (err, posts) =>
     {
         //console.log(posts)
         if(err){
@@ -168,6 +168,22 @@ app.post('/followUser', (req, res) => {
         }
         else{
             res.status(200).send({status: "added follower", followingList: success.following})
+        }
+    })
+})
+
+app.post('/updateLikes', (req, res) => {
+    
+    const id = req.body.postId
+    const query = {'_id': id}
+    console.log(query)
+    User.updateOne(query, {$inc: {likes: 1}}, {returnOriginal: false}, function(err, success){
+        if(err){
+            console.log(err)
+            res.status(400).send({status: "update likes failed"})
+        }
+        else{
+            res.status(200).send({status: "updated likes"})
         }
     })
 })
