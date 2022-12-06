@@ -48,8 +48,8 @@ class Feed extends React.Component{
             
                 
             const user = sessionStorage.getItem("user")
-            // console.log("start of getFollowedUsers")
-            // console.log(user)
+            console.log("start of getFollowedUsers")
+            console.log(user)
 
             fetch("http://localhost:3000/getFollowingUsers" + user, {
                 method: "GET",

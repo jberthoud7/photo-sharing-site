@@ -26,6 +26,7 @@ function Register(props){
             body: JSON.stringify({parcel: userData})
         })
         .then(() => {
+            sessionStorage.setItem("user", userData.username)
             navigate('/Feed')
         })
     }
