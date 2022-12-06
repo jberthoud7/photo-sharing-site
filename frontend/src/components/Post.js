@@ -31,6 +31,9 @@ function Post(props){
     const updateComments = e => {
         const commentId = e.target.id + "newComment"
         const comment = document.getElementById(commentId).value
+        const user_id =  sessionStorage.getItem('user')
+
+        const displayComment = user_id + ": " + comment
 
         fetch('http://localhost:3000/addComment', {
                     method: "POST",
@@ -39,7 +42,7 @@ function Post(props){
                     },
                     body: JSON.stringify({
                         postId: e.target.id,
-                        comment: comment
+                        comment: displayComment
                     })
                 })
                 .then(response => response.json())
@@ -65,6 +68,7 @@ function Post(props){
                 <ul className={classes.list}>
                     {comments.commentsData.map((comment) => (
                         <Comment
+                            user={comment.user}
                             comment={comment}
                         />
                     ))}
