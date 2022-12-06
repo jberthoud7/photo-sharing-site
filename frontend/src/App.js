@@ -6,6 +6,7 @@ import Register from './pages/Register'
 import CreateNewPost from './pages/CreateNewPost'
 import DeleteAccount from './pages/DeleteAccount'
 import Followers from './pages/Following'
+import UserProfile from './pages/UserProfile'
 import { Route, Routes } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -21,6 +22,7 @@ const App = () => {
         <Route path='CreateNewPost' element={<CreateNewPost />} />
         <Route path='DeleteAccount' element={<DeleteAccount />} />
         <Route path='Following' element={<Followers />} />
+        <Route path='UserProfile' element={<UserProfile />} />
       </Routes>
     </div>
   )
