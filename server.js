@@ -189,6 +189,25 @@ app.post('/updateLikes', (req, res) => {
     })
 })
 
+app.post('/addComment', (req, res) => {
+    console.log(req.body.postId)
+    const id = req.body.postId
+    const comment = req.body.comment
+    console.log(id)
+    console.log(comment)
+    Post.findByIdAndUpdate(id, {$push: {'comments': comment }}, {safe: true, upsert: true, new : true}, function(err, success){
+        //.then to directly update likes
+        console.log(success)
+        if(err){
+            console.log(err)
+            res.status(400).send({status: "add comment failed"})
+        }
+        else{
+            res.status(200).send({status: "comment added"})
+        }
+    })
+})
+
 const PORT = process.env.PORT || 5000
 
 //Express js listen method to run project on http://localhost:5000

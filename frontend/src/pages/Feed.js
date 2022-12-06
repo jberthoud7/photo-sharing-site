@@ -103,6 +103,7 @@ class Feed extends React.Component{
                     caption={post.caption}
                     username={post.user_id}
                     likes={post.likes}
+                    comments={post.comments}
                 />
         ))
         return (

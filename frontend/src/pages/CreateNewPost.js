@@ -13,7 +13,8 @@ function CreateNewPost(props) {
         user_id: sessionStorage.getItem('user'),
         image: '',
         caption: '',
-        likes: 0
+        likes: 0,
+        comments: []
     });
 
     const handleSubmit = (e) => {
@@ -24,6 +25,7 @@ function CreateNewPost(props) {
         formData.append('image', newPost.image);
         formData.append('caption', newPost.caption);
         formData.append('likes', newPost.likes);
+        formData.append('comments', newPost.comments)
         
         axios.post('http://localhost:3000/createPost', formData)
             .then(res => {
