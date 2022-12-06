@@ -1,8 +1,12 @@
 import classes from '../components/componentsStyles/Post.module.css';
-
-
+import Comment from "./Comments";
+import {useState} from 'react'
 
 function Post(props){
+
+    const [comments, setComments] = useState( {
+        commentsData: props.comments
+    });
 
     const updateLikes = e => {
         console.log("click")
@@ -25,7 +29,8 @@ function Post(props){
     }
 
     const updateComments = e => {
-        const comment = document.getElementById("newComment").value
+        const commentId = e.target.id + "newComment"
+        const comment = document.getElementById(commentId).value
 
         fetch('http://localhost:3000/addComment', {
                     method: "POST",
@@ -38,9 +43,8 @@ function Post(props){
                     })
                 })
                 .then(response => response.json())
-                // fix this
                 .then((res => {
-                    console.log(res.newComment)
+                    setComments({...comments, commentsData: res.data})
                 }))
     }
 
@@ -58,9 +62,15 @@ function Post(props){
                     <p className={classes.child} id={props.propId + "L"}>{props.likes}</p>
                     <button className={classes.child} id={props.propId} onClick={updateLikes}>Like</button>
                 </div>
-                {/* put in mapping through comments */}
+                <ul className={classes.list}>
+                    {comments.commentsData.map((comment) => (
+                        <Comment
+                            comment={comment}
+                        />
+                    ))}
+                </ul>
                 <div>
-                    <input className={classes.child} type="text" id="newComment" placeholder="Comment"/>
+                    <input className={classes.child} type="text" id={props.propId + "newComment"} placeholder="Comment"/>
                     <button className={classes.child} id={props.propId} onClick={updateComments}>Comment</button>
                 </div>
             </div>

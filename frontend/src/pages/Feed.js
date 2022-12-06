@@ -2,34 +2,6 @@ import React from "react";
 import NavBar from "../components/NavBar"
 import Post from "../components/Post";
 import classes from "./pagesStyles/Feed.module.css"
-import axios from 'axios';
-
-
-
-
-
-//     render() {
-//         const children = this.state.data.map((post) => (
-//             <Post 
-//                     key={post._id} 
-//                     img={post.image}
-//                     caption={post.caption}
-//                     username={post.user_id}
-//                 />
-//         ))
-//         return (
-//             <div>
-//                 <NavBar />
-//                 <ul className={classes.list}>
-//                     {children}
-//                 </ul>
-//             </div>
-//         );
-//     }
-  
-
-//   export default Feed;
-
 
 
 class Feed extends React.Component{
@@ -38,15 +10,10 @@ class Feed extends React.Component{
         this.state = {
             data: []
         };
-
-        //this.getPosts = this.getPosts.bind(this);
     }
 
     componentDidMount() {
-        //function getFollowedUsers () { 
-        
-            
-                
+
             const user = sessionStorage.getItem("user")
             console.log("start of getFollowedUsers")
             console.log(user)

@@ -112,7 +112,7 @@ app.post('/getPost', (req, res) => {
     console.log("QUERY CALLED")
     const userList = req.body.users
     console.log(userList)
-    Post.find({user_id: {"$in" : userList}}, "_id image caption user_id likes", (err, posts) =>
+    Post.find({user_id: {"$in" : userList}}, "_id image caption user_id likes comments", (err, posts) =>
     {
         //console.log(posts)
         if(err){
@@ -197,13 +197,13 @@ app.post('/addComment', (req, res) => {
     console.log(comment)
     Post.findByIdAndUpdate(id, {$push: {'comments': comment }}, {safe: true, upsert: true, new : true}, function(err, success){
         //.then to directly update likes
-        console.log(success)
+        console.log(success.comments)
         if(err){
             console.log(err)
             res.status(400).send({status: "add comment failed"})
         }
         else{
-            res.status(200).send({status: "comment added"})
+            res.status(200).send({data: success.comments})
         }
     })
 })

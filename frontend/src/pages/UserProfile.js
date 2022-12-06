@@ -45,11 +45,14 @@ function UserProfile(props) {
                 <ul className={classes.list}>
                     {userPosts.postData.map((post) => (
                         <Post 
-                                key={post._id} 
-                                img={post.image}
-                                caption={post.caption}
-                                username={post.user_id}
-                            />
+                            propId={post._id}
+                            key={post._id} 
+                            img={post.image}
+                            caption={post.caption}
+                            username={post.user_id}
+                            likes={post.likes}
+                            comments={post.comments}
+                        />
                     ))}
                 </ul>
             </div>
