@@ -8,9 +8,13 @@ Carolina Alisio, 473022, calisio
 We uploaded the rubric as a pdf, so it has to be viewed on Github (ie. not a code editor)
 
 # Stuff to install
-in mian project:
+in main project:
+
 npm install -g nodemon
+
 npm install express
 
+
 in frontend:
+
 npm install
