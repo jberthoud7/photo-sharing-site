@@ -29,10 +29,10 @@ function Login(props){
         let loginSuccess = false;
 
 
-        if(data.status == 'User does not exist'){
+        if(data.res == 'User does not exist'){
             console.log('DNE')
         }
-        else if(data.status == 'User exists'){
+        else if(data.res == 'User exists'){
             bcrypt.compare(userData.password, data.hashed_pswd)
             .then(function(result){
                 if(result){
@@ -45,6 +45,7 @@ function Login(props){
             })
             .then(() => {
                 if(loginSuccess){
+                    console.log('here')
                     sessionStorage.setItem("user", userData.username)
                     navigate('/Feed');
                 }

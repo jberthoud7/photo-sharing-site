@@ -28,7 +28,7 @@ function NavBar(props){
     return(
         <div className={classes.container}>
             <div>
-                <h3>Website Name</h3>
+                <h3>Finstagram</h3>
             </div>
             <div className={classes.linkContainer}>
                 <NavLink to="/Feed" className={classes.link}>{MdOutlineHome}</NavLink>

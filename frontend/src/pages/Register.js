@@ -17,18 +17,34 @@ function Register(props){
     }
 
     async function createAccount (userData) {
-        // console.log("calling createAccount");
-        await fetch("http://localhost:3000/createAccount", {
-            method: "POST",
+        //first check if user exists already
+        const res = await fetch("http://localhost:3000/getUser" + userData.username, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json",
-            },
-            body: JSON.stringify({parcel: userData})
-        })
-        .then(() => {
-            sessionStorage.setItem("user", userData.username)
-            navigate('/Feed')
-        })
+            }
+        });
+        const data = await res.json()
+
+
+        if(data.res == "User exists"){
+            console.log("user already exists")
+        }
+        else{
+            //if user does not exist, create user
+            await fetch("http://localhost:3000/createAccount", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({parcel: userData})
+            })
+            .then(() => {
+                sessionStorage.setItem("user", userData.username)
+                navigate('/Feed')
+            })
+        }
+        
     }
 
 

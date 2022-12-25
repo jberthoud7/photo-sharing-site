@@ -21,7 +21,7 @@ function StartScreen(props)
     return(
         <div>
             <div className={classes.title}>
-                <h1>Photo Sharing Site</h1>
+                <h1>Finstagram</h1>
             </div>
             <div className={classes.linkDiv}>
                 <Link to='/login' className={classes.link}>Login</Link>

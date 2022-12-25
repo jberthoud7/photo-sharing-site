@@ -64,13 +64,13 @@ app.get('/getUser:dynamic', (req, res) => {
     User.find({username: dynamic}, "username hashed_pswd", (err, users) =>
     {
         if(err){
-            res.status(400).send({status: 'GET failed'})
+            res.status(400).send({res: 'GET failed'})
         }
         if(users.length == 0){
-            res.status(200).send({status: 'User does not exist'})
+            res.status(200).send({res: 'User does not exist'})
         }
         else{
-            res.status(200).send({status: 'User exists', hashed_pswd: users[0].hashed_pswd})
+            res.status(200).send({res: 'User exists', hashed_pswd: users[0].hashed_pswd})
         }
     })
 })
