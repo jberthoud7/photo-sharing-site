@@ -10,7 +10,7 @@ function CreateNewPost(props) {
     const navigate = useNavigate();
 
     const [newPost, setNewPost] = useState( {
-        user_id: sessionStorage.getItem('user'),
+        username: sessionStorage.getItem('user'),
         image: '',
         caption: '',
         likes: 0,
@@ -20,8 +20,7 @@ function CreateNewPost(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        // how to get the user_id
-        formData.append('user_id', newPost.user_id)
+        formData.append('username', newPost.username)
         formData.append('image', newPost.image);
         formData.append('caption', newPost.caption);
         formData.append('likes', newPost.likes);

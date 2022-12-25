@@ -9,7 +9,7 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    user_id: { //object id of user object
+    username: { //username
         type: String,
         required: true
     },

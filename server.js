@@ -89,13 +89,13 @@ const upload = multer({storage: storage, limits: { fieldSize: 25 * 1024 * 1024 }
 // POST for uploading photos
 app.post('/createPost', upload.single("photo"), (req, res) => {
 
-    const user_id = req.body.user_id;
+    const username = req.body.username;
     const image = req.body.image;
     const caption = req.body.caption;
     const likes = req.body.likes;
 
     const newPostData = {
-        user_id,
+        username,
         image,
         caption,
         likes
@@ -112,7 +112,7 @@ app.post('/getPost', (req, res) => {
     console.log("QUERY CALLED")
     const userList = req.body.users
     console.log(userList)
-    Post.find({user_id: {"$in" : userList}}, "_id image caption user_id likes comments", (err, posts) =>
+    Post.find({username: {"$in" : userList}}, "_id image caption username likes comments", (err, posts) =>
     {
         //console.log(posts)
         if(err){

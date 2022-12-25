@@ -31,9 +31,9 @@ function Post(props){
     const updateComments = e => {
         const commentId = e.target.id + "newComment"
         const comment = document.getElementById(commentId).value
-        const user_id =  sessionStorage.getItem('user')
+        const username =  sessionStorage.getItem('user')
 
-        const displayComment = user_id + ": " + comment
+        const displayComment = username + ": " + comment
 
         fetch('http://localhost:3000/addComment', {
                     method: "POST",

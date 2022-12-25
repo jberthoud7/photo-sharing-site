@@ -68,7 +68,7 @@ class Feed extends React.Component{
                     key={post._id} 
                     img={post.image}
                     caption={post.caption}
-                    username={post.user_id}
+                    username={post.username}
                     likes={post.likes}
                     comments={post.comments}
                 />
