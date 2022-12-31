@@ -9,12 +9,12 @@ export async function checkIfUserExists(username){
         });
         const data = await res.json()
 
-        if(data.res == 'DNE'){
-            console.log('User does not exist1')
+        if(data.res ==='DNE'){
+            //console.log('User does not exist1')
             return false
         }
-        else if(data.res == 'User exists'){
-            console.log(username," exists")
+        else if(data.res === 'User exists'){
+            //console.log(username," exists")
             return true
         }
     
@@ -31,7 +31,7 @@ export async function checkIfUserIsFollowed(username, userLoggedIn){
 
     const included = await data.followingList.includes(username)
     if(included){
-        console.log("You already follow ", username)
+        //console.log("You already follow ", username)
         return true
     }
     else{
