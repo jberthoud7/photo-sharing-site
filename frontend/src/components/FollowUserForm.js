@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import classes from "./componentsStyles/Following.module.css"
 
 function FollowUserForm(props){
 
@@ -23,10 +24,11 @@ function FollowUserForm(props){
 
 
     return(
-        <div>
+        <div className={classes.headerContainer}>
+            <h3 className={classes.header}> Follow New User</h3>
             <form onSubmit={submitHandler}>
                 <div>
-                    <input type="text" required id="userToFollowForm" placeholder="User to follow" ref={userToFollowRef}/>
+                    <input type="text" required id="userToFollowForm" placeholder="Username" ref={userToFollowRef}/>
                 </div>
             </form>
 

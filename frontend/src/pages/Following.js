@@ -1,9 +1,9 @@
 import React from "react";
 import NavBar from "../components/NavBar"
-import classes from "./pagesStyles/Feed.module.css"
 import FollowUserForm from "../components/FollowUserForm";
 import FollowingList from "../components/FollowingList";
 import { useState, useEffect } from 'react'
+import { checkIfUserExists } from "../helpers/utils";
 
   
 function Following(props){
@@ -30,28 +30,32 @@ function Following(props){
         .then(response => response.json())
         .then((data) => {
             setFollowingList(data.followingList);
-            // console.log("in getFollowedUsers")
-            // console.log(followingList)
         })
 
         return followingList
     }
 
     async function followUser (userData) {
-        //console.log(userData)
-        const res = await fetch("http://localhost:3000/followUser", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                userFollowing: userData.userFollowing,
-                userToFollow: userData.userToFollow
+        const userExists = await checkIfUserExists(userData.userToFollow)
+        console.log(userExists)
+        if(userExists){
+            await fetch("http://localhost:3000/followUser", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userFollowing: userData.userFollowing,
+                    userToFollow: userData.userToFollow
+                })
             })
-        })
-        .then(response => response.json())
-        .then(getFollowedUsers())
-
+            .then(response => response.json())
+            .then(getFollowedUsers())
+        }
+        else{
+            //TODO: popup user dne
+            console.log('User does not exist2')
+        }
     }
 
 

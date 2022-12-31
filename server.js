@@ -67,7 +67,7 @@ app.get('/getUser:dynamic', (req, res) => {
             res.status(400).send({res: 'GET failed'})
         }
         if(users.length == 0){
-            res.status(200).send({res: 'User does not exist'})
+            res.status(200).send({res: 'DNE'})
         }
         else{
             res.status(200).send({res: 'User exists', hashed_pswd: users[0].hashed_pswd})

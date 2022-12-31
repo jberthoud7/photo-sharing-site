@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import classes from "./componentsStyles/Following.module.css"
 
 function FollowingList(props){
 
@@ -10,11 +11,15 @@ function FollowingList(props){
 
     if(props.followingList != null){
         return(
-            <div>
-                <ul>
+            <div className={classes.listContainer}>
+                <h3 className={classes.header}> Following </h3>
+                <ul className={classes.list}>
                     {
                         props.followingList.map((user) => {
-                            return <li key={user}>{user}</li>
+                            if(user !== sessionStorage.user){
+                                return <li key={user}>{user}</li>
+                            }
+                            
                         })}
                     
                 </ul>
