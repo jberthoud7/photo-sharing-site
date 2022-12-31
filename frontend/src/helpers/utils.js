@@ -19,3 +19,22 @@ export async function checkIfUserExists(username){
         }
     
 }
+
+export async function checkIfUserIsFollowed(username, userLoggedIn){
+    const res = await fetch("http://localhost:3000/getFollowingUsers" + userLoggedIn, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    });
+    const data = await res.json()
+
+    const included = await data.followingList.includes(username)
+    if(included){
+        console.log("You already follow ", username)
+        return true
+    }
+    else{
+        return false
+    }
+}

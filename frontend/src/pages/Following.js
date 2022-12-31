@@ -3,7 +3,7 @@ import NavBar from "../components/NavBar"
 import FollowUserForm from "../components/FollowUserForm";
 import FollowingList from "../components/FollowingList";
 import { useState, useEffect } from 'react'
-import { checkIfUserExists } from "../helpers/utils";
+import { checkIfUserExists, checkIfUserIsFollowed } from "../helpers/utils";
 
   
 function Following(props){
@@ -36,25 +36,35 @@ function Following(props){
     }
 
     async function followUser (userData) {
+        
         const userExists = await checkIfUserExists(userData.userToFollow)
-        console.log(userExists)
+
         if(userExists){
-            await fetch("http://localhost:3000/followUser", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    userFollowing: userData.userFollowing,
-                    userToFollow: userData.userToFollow
+            const userLoggedIn = sessionStorage.getItem("user")
+            const userIsFollowedAlready = await checkIfUserIsFollowed(userData.userToFollow, userLoggedIn)
+
+            if(!userIsFollowedAlready){
+                await fetch("http://localhost:3000/followUser", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        userFollowing: userData.userFollowing,
+                        userToFollow: userData.userToFollow
+                    })
                 })
-            })
-            .then(response => response.json())
-            .then(getFollowedUsers())
+                .then(response => response.json())
+                .then(getFollowedUsers())
+            }
+            else{
+                //TODO: popup user already followed
+                console.log("user is already followed")
+            }
         }
         else{
             //TODO: popup user dne
-            console.log('User does not exist2')
+            console.log('User does not exist')
         }
     }
 
