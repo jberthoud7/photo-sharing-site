@@ -4,7 +4,7 @@ import FollowUserForm from "../components/FollowUserForm";
 import FollowingList from "../components/FollowingList";
 import { useState, useEffect } from 'react'
 import { checkIfUserExists, checkIfUserIsFollowed } from "../helpers/utils";
-
+import classes from "./pagesStyles/FollowingPage.module.css"
   
 function Following(props){
 
@@ -72,13 +72,21 @@ function Following(props){
     return(
         <div>
             <NavBar />
-            <FollowUserForm
-                sendInputBack={formToFollow}
-            />
-            <FollowingList
-                followingList={followingList}
-                getFollowedUsers = {getFollowedUsers}
-            />
+            <div className={classes.pageContainer}>
+                <div className={classes.followNewUsersContainer}>
+                    <FollowUserForm
+                        sendInputBack={formToFollow}
+                    />
+                </div>
+                <div className={classes.currentFollowingContainer}>
+                    <FollowingList
+                        followingList={followingList}
+                        getFollowedUsers = {getFollowedUsers}
+                    />
+                </div>
+                
+            </div>
+            
 
         </div>
     )

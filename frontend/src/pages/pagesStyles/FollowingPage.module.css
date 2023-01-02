@@ -1,0 +1,14 @@
+.pageContainer{
+
+}
+
+.pageContainer > div{
+    display: inline-flex;
+    width: 40%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border: 3px solid #800040;
+}
+
+
+
