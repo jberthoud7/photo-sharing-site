@@ -3,38 +3,31 @@ import NavBar from "../components/NavBar"
 import FollowUserForm from "../components/FollowUserForm";
 import FollowingList from "../components/FollowingList";
 import { useState, useEffect } from 'react'
-import { checkIfUserExists, checkIfUserIsFollowed } from "../helpers/utils";
+import { checkIfUserExists, checkIfUserIsFollowed, getFollowedUsers } from "../helpers/utils";
 import classes from "./pagesStyles/FollowingPage.module.css"
   
 function Following(props){
+    
+    const sessionUser = sessionStorage.getItem("user")
+
+    const [followingList, setFollowingList] = useState(null);
+    const [isLoading, setLoading] = useState(true)
 
     //pass thru method to send data from form to followUser
     const formToFollow = (formData) => {
         followUser(formData)
     }
 
-    const [followingList, setFollowingList] = new useState(null);
+    useEffect(() => {
+            onPageLoad()
+    }, [])
 
-    function getFollowedUsers (){
-        
-        const user = sessionStorage.getItem("user")
-        // console.log("start of getFollowedUsers")
-        // console.log(user)
-
-        fetch("http://localhost:3000/getFollowingUsers" + user, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            }
-        })
-        .then(response => response.json())
-        .then((data) => {
-            setFollowingList(data.followingList);
-        })
-
-        return followingList
+    async function onPageLoad() {
+        const resList = await getFollowedUsers(sessionUser)
+        setFollowingList(resList)
+        setLoading(false)
     }
-
+    
     async function followUser (userData) {
         
         const userExists = await checkIfUserExists(userData.userToFollow)
@@ -44,7 +37,7 @@ function Following(props){
             const userIsFollowedAlready = await checkIfUserIsFollowed(userData.userToFollow, userLoggedIn)
 
             if(!userIsFollowedAlready){
-                await fetch("http://localhost:3000/followUser", {
+                const res = await fetch("http://localhost:3000/followUser", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -54,8 +47,14 @@ function Following(props){
                         userToFollow: userData.userToFollow
                     })
                 })
-                .then(response => response.json())
-                .then(getFollowedUsers())
+
+                const data = await res.json()
+                if(data.res == "success"){
+                    console.log("AAAAAAAAAAAAAAAA")
+                    setFollowingList(await getFollowedUsers(sessionUser))
+                    console.log(followingList)
+                }
+                
             }
             else{
                 //TODO: popup user already followed
@@ -68,28 +67,37 @@ function Following(props){
         }
     }
 
-
-    return(
-        <div>
-            <NavBar />
-            <div className={classes.pageContainer}>
-                <div className={classes.followNewUsersContainer}>
-                    <FollowUserForm
-                        sendInputBack={formToFollow}
-                    />
-                </div>
-                <div className={classes.currentFollowingContainer}>
-                    <FollowingList
-                        followingList={followingList}
-                        getFollowedUsers = {getFollowedUsers}
-                    />
+    if(isLoading){
+        return(
+            <div>
+                <NavBar />
+            </div>
+        )
+    }
+    else{
+        return(
+            <div>
+                <NavBar />
+                <div className={classes.pageContainer}>
+                    <div className={classes.followNewUsersContainer}>
+                        <FollowUserForm
+                            sendInputBack={formToFollow}
+                        />
+                    </div>
+                    <div className={classes.currentFollowingContainer}>
+                        <FollowingList
+                            followingList={followingList}
+                            getFollowedUsers = {getFollowedUsers}
+                        />
+                    </div>
+                    
                 </div>
                 
+    
             </div>
-            
-
-        </div>
-    )
+        )
+    }
+    
 
 
 }

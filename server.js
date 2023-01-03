@@ -149,7 +149,7 @@ app.get('/getFollowingUsers:dynamic', (req, res) => {
             res.status(400).send({status: 'failed'})
         }
         else {
-            res.status(200).send({status: 'success', followingList: result[0].following})
+            res.status(200).send({status: 'success', followingList: result})
         }
     })
 })
@@ -164,10 +164,10 @@ app.post('/followUser', (req, res) => {
     User.findOneAndUpdate(query, {$push: {following: userToFollow}}, {returnOriginal: false}, function(err, success){
         if(err){
             console.log(err)
-            res.status(400).send({status: "follow user failed"})
+            res.status(400).send({res: "failed"})
         }
         else{
-            res.status(200).send({status: "added follower", followingList: success.following})
+            res.status(200).send({res: "success", followingList: success.following})
         }
     })
 })
@@ -176,7 +176,7 @@ app.post('/updateLikes', (req, res) => {
     
     const id = req.body.postId
     //const id = "ObjectId('" + req.body.postId + "')"
-    console.log(id)
+    //console.log(id)
     Post.findByIdAndUpdate({'_id': id}, {$inc: {'likes': 1}}, {returnOriginal: false}, function(err, success){
         //.then to directly update likes
         if(err){

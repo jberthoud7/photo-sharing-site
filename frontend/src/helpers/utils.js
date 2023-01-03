@@ -20,8 +20,8 @@ export async function checkIfUserExists(username){
     
 }
 
-export async function checkIfUserIsFollowed(username, userLoggedIn){
-    const res = await fetch("http://localhost:3000/getFollowingUsers" + userLoggedIn, {
+export async function checkIfUserIsFollowed(username, sessionUser){
+    const res = await fetch("http://localhost:3000/getFollowingUsers" + sessionUser, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -37,4 +37,26 @@ export async function checkIfUserIsFollowed(username, userLoggedIn){
     else{
         return false
     }
+}
+
+
+export async function getFollowedUsers (username){
+        
+    const res = await fetch("http://localhost:3000/getFollowingUsers" + username, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        }
+    })
+    
+    const data = await res.json()
+    const followingList = await data.followingList
+
+    if(followingList.length == 0 ){
+        return null
+    }
+    else{
+        return followingList[0].following
+    }
+    
 }

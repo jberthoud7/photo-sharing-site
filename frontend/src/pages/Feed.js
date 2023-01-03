@@ -27,14 +27,14 @@ class Feed extends React.Component{
             .then(response => response.json())
             .then(users => {
                 console.log("users here")
-                console.log(users.followingList)
+                console.log(users.followingList[0].following)
                 fetch('http://localhost:3000/getPost', {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        users: users.followingList
+                        users: users.followingList[0].following
                     })
                 })
                 .then(response => response.json())
@@ -60,8 +60,8 @@ class Feed extends React.Component{
 
 
     render() {
-        console.log("here")
-        console.log(this.state.data)
+        //console.log("here")
+        //console.log(this.state.data)
         const children = this.state.data.map((post) => (
             <Post 
                     propId={post._id}
