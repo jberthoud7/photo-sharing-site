@@ -3,6 +3,11 @@ Started by James Berthoud and Carolina Alisio for CSE330 at Washington Universit
 
 Continued independently by James Berthoud
 
+# To Run:
+
+npm start in ./photo-sharing-site 
+npm start in ./photo-sharing-site/frontend
+
 
 # Things I added
 Cleaned up styling on following page

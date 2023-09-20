@@ -102,11 +102,39 @@ app.post('/createPost', upload.single("photo"), (req, res) => {
     }
 
     const newPost = new Post(newPostData);
+    console.log("a")
 
-    newPost.save()
-        .then(() => res.json("Post Added"))
+    newPost.save()        
+        .then((newPost) => 
+            {
+                const response = {
+                    postId: newPost._id,
+                    username: username
+                }
+                res.json(response)
+        })
         .catch(err => res.status(400).json("Error: " + err));
 })
+
+app.post('/updateUsersPosts', (req, res) => {
+    console.log("IN UPDATE USER POSTS")
+    console.log(req.body)
+    const username = req.body.username
+    const postId = req.body.postId
+
+    const query = {username : username}
+    const op = {$push: {posts : postId}}
+
+    User.updateOne(query, op)
+        .then(() => {
+            res.status(200).send({msg: "Post added to user's array"})
+        })
+        .catch((error) => {
+            res.status(400).json({error: error.message})
+        })
+
+})
+
 
 app.post('/getPost', (req, res) => {
     console.log("QUERY CALLED")

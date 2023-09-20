@@ -21,20 +21,33 @@ function CreateNewPost(props) {
         e.preventDefault();
         const formData = new FormData();
         formData.append('username', newPost.username)
-        formData.append('image', newPost.image);
-        formData.append('caption', newPost.caption);
-        formData.append('likes', newPost.likes);
+        formData.append('image', newPost.image)
+        formData.append('caption', newPost.caption)
+        formData.append('likes', newPost.likes)
         formData.append('comments', newPost.comments)
         
         axios.post('http://localhost:3000/createPost', formData)
             .then(res => {
-                console.log(res);
-                navigate('/Feed');
+                const username = res.data.username
+                const postId = res.data.postId
+
+                updateUsersPosts(username, postId)
             })
             .catch(err => {
                 console.log(err);
             });
     } 
+
+    const updateUsersPosts = (username, postId) => {
+        axios.post('http://localhost:3000/updateUsersPosts', {postId, username})
+            .then(() => {
+                console.log("user's posts updated")
+                navigate('/Feed')
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
 
     const convertToBase64 = (file) => {
         return new Promise((resolve, reject) => {

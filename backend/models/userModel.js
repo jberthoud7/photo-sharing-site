@@ -13,6 +13,9 @@ const userSchema = mongoose.Schema({
     },
     following: {
         type: Array
+    },
+    posts: {
+        type: Array
     }
 }, {
     timestamps: true
