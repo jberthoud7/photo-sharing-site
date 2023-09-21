@@ -9,12 +9,13 @@ npm start in ./photo-sharing-site
 npm start in ./photo-sharing-site/frontend
 
 
-# Things I added
+# Things James added independently
 Cleaned up styling on following page
 
 Added helper function to check if user exists
 Added helper function to check if user is already followed
 
+Updated User model to include an Array of their posts, added functionality to insert post ids
 
 
 
